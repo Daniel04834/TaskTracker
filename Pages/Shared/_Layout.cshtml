@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TaskTracker</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="h-full">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <div class="w-full h-full bg-gray-600">
+        <div class="relative top-2 mx-auto left-0 right-0 w-[98%] h-10 rounded-md bg-blue-200 shadow-[0px_2px_10px_0px_rgba(0,0,0,255)]">
+
+            <div class="absolute flex w-[50%] h-full items-center [&>div>span]:text-sm [&>div>i]:text-sm select-none">
+                <div class="basis-32 text-center">
+                    <span class="italic !text-lg font-semibold">Task Tracker</span>
+                </div>
+                <div class="pl-5">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </div>
+                <div class="pl-5">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>My Tasks</span>
+                </div>
+            </div>
+
+            <div class="absolute flex right-2 justify-end items-center w-32 h-full">
+                <div class="basis-16 text-center">
+                    <i class="fa-regular fa-bell fa-lg"></i>
+                </div>
+                <div class="basis-12">
+                    <div class="w-7 h-7 mx-auto rounded-[100%] bg-[url('https://media.npr.org/assets/img/2021/11/21/gettyimages-1354349553_wide-e0acd4484282c66ca256064535b49f8bf29374af.jpg?s=1400&c=100&f=jpeg')] bg-center bg-cover">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="relative flex mx-auto mt-5 w-full min-h-[calc(100%-3.75rem)] bg-blue-400">
+            @RenderBody()
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@@shopify/draggable/build/umd/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="~/js/updater.js" asp-append-version="true"></script>
+    <script src="~/js/refresher.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/components/taskColumnComponent.js" asp-append-version="true"></script>
+    <script src="~/js/components/taskCardComponent.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @if (Context.Session.GetString("cookies") == null)
+    {
+        <script>
+            SetCookie("user-id", "@Context.Session.GetString("user_id")", @SessionTimeoutMinutes)
+            SetCookie("unique-id", "@Functions.Encrypt(Context.Session.GetString("unique_id"), EncryptionKey, EncryptionIv)", @SessionTimeoutMinutes)
+        </script>
+        Context.Session.SetString("cookies", "set");
+    }
+</body>
+</html>

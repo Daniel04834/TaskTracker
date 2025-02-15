@@ -1,0 +1,20 @@
+{
+  "name": "TaskTracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "scripts": {
+    "build": "node ./node_modules/tailwindcss/lib/cli.js -i ./Styles/app.css -o ./wwwroot/css/app.css",
+    "watch": "node ./node_modules/tailwindcss/lib/cli.js -i ./Styles/app.css -o ./wwwroot/css/app.css --watch",
+    "release": "node ./node_modules/tailwindcss/lib/cli.js -i ./Styles/app.css -o ./wwwroot/css/app.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  }
+}

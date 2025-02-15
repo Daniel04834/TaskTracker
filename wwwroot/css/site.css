@@ -1,0 +1,14 @@
+.checkmark-icon {
+    transition: all 0.1s ease-out;
+    fill: white;
+}
+.checkmark-icon > #Checkmark > #Mark {
+    stroke: black;
+}
+
+.checkmark-icon-checked {
+    fill: lightgreen;
+}
+.checkmark-icon-checked > #Checkmark > #Mark {
+    stroke: darkgreen;
+}

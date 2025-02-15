@@ -1,0 +1,19 @@
+﻿@page
+@model TaskTracker.Pages.ProjectModel
+@{
+}
+
+<div class="relative mx-auto mt-5 flex min-h-[calc(100%-3.75rem)] w-full bg-blue-400">
+    <div id="task-columns" class="flex [&>task-column]:px-5 [&>task-column]:pt-5">
+        @foreach (var column in Model.Columns.OrderBy(x => x.Order))
+        {
+            <task-column column-id="@column.Id" column-title="@column.Title">
+                @foreach (var task in Model.GetTasksForColumnId(column.Id).OrderByDescending(x => x.Order))
+                {
+                    <task-card task-id="@task.Id" task-column-id="@column.Id" task-title="@task.Title" task-order="@task.Order" task-completed="@task.Completed.ToString()"></task-card>
+                }
+            </task-column>
+        }
+        <div id="add-new-column" class="cursor-pointer h-10">Add new column</div>
+    </div>
+</div>
