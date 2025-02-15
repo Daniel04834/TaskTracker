@@ -1,14 +1,4 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-/*var userId = document.getElementById("user_id").innerText;
-var sessionKey = document.getElementById("unique_id").innerText;
-document.getElementById("user_id").remove();
-document.getElementById("unique_id").remove();*/
-//import Cookies from 'js-cookie'
-
-var projectId = FindGetParameter("ProjectId");
+﻿var projectId = FindGetParameter("ProjectId");
 
 
 window.onload = function(){
@@ -48,17 +38,10 @@ function ReassignTaskOrdersAndColumns(columnId){
     var tasks = Array.from(taskColumn.getElementsByTagName("task-card"));
     for (let index = 0; index < tasks.length; index++) {
         const element = tasks[index];
-        //console.log(element);
-        //console.log(tasks.length-index);
         var newOrder = tasks.length-index;
-        console.log(element);
-        console.log(newOrder);
         if(element.getAttribute("task-order") == newOrder && element.getAttribute("task-column-id") == columnId) continue;
         if(element.getAttribute("task-column-id") != columnId) element.setAttribute("task-column-id", columnId);
-        console.log("Pass");
         element.setAttribute("task-order", newOrder);
-        console.log("TASK-ID: " + element.getAttribute("task-id"));
-        //updatedTasks[element.getAttribute("task-id")] = newOrder;
         updatedTasks.push(element.getAttribute("task-id"));
     }
     
@@ -103,16 +86,9 @@ function FindGetParameter(parameterName) {
 function SetCookie(name, value, expiresMinutes){
     const date = new Date();
     date.setTime(date.getTime() + (expiresMinutes * 60 * 1000)); // minutes to milliseconds
-    //const expires = date.toUTCString();
-    //document.cookie = `${name}=${value}; expires=${expires}; path=/`;
     Cookies.set(name, value, { expires: date });
-    console.log("Cookie set: " + document.cookie);
 }
 
 function Delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-/*function GetCookie(name){
-    const cookie = document.cookie.split(";").find(cookie => cookie.includes(name));
-    return cookie ? cookie.split("=")[1] : null;
-}*/

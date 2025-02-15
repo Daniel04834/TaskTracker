@@ -6,7 +6,6 @@ var taskColumns = document.getElementById("task-columns");
 function TaskRefresher() {
     setInterval(async () => {
         var jsonUpdatedTasks = GetUpdatedTasks();
-        //console.log(jsonUpdatedTasks);
         var columnsToUpdate = new Set();
         Object.keys(jsonUpdatedTasks).forEach(key => {
             if(updated.includes(key)) return;
@@ -14,10 +13,8 @@ function TaskRefresher() {
             updated.push(key);
 
             var element = jsonUpdatedTasks[key];
-            console.log(element);
             var taskElement = document.querySelector(`[task-id="${element.id}"]`);
             if(taskElement == null) {
-                console.log(element.columnId);
                 var taskColumnArea = document.querySelector(`[column-id="${element.columnId}"]`).getElementsByClassName("column")[0].getElementsByClassName("tasks-area")[0];
                 var taskCard = document.createElement("task-card");
                 taskCard.setAttribute("task-id", element.id);
@@ -27,7 +24,6 @@ function TaskRefresher() {
                 taskCard.setAttribute("task-completed", element.completed);
                 taskCard.setAttribute("task-collaborators", element.collaborators);
                 taskCard.setAttribute("animation", "animate__fadeInUp");
-                //taskColumn.appendChild(taskCard);
                 taskColumnArea.prepend(taskCard);
             }
             else{
@@ -40,7 +36,6 @@ function TaskRefresher() {
                 if(taskElement.getAttribute("task-title") != element.title) taskElement.setAttribute("task-title", element.title);
                 if(taskElement.getAttribute("task-order") != element.order) { columnsToUpdate.add(element.columnId); taskElement.setAttribute("task-order", element.order); }
                 if(taskElement.getAttribute("task-completed").toLowerCase() != element.completed) taskElement.setAttribute("task-completed", element.completed);
-                //taskElement.setAttribute("task-collaborators", element.collaborators);
             }
         });
         await Delay(500);
@@ -84,7 +79,6 @@ function GetUpdatedColumns(){
     xhttp.send();
     while (!xhttp.DONE) Delay(100);
 
-    //console.log(xhttp.responseText);
     return xhttp.status == 200 ? JSON.parse(xhttp.responseText) : null;
 }
 
@@ -96,28 +90,5 @@ function GetUpdatedTasks(){
     xhttp.send();
     while (!xhttp.DONE) Delay(100);
 
-    //console.log(xhttp.responseText);
     return xhttp.status == 200 ? JSON.parse(xhttp.responseText) : null;
 }
-
-/*async function GetAllTasks(){
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `https://${document.location.host}/api/project/${projectId}/task/get/all`, true);
-    xhttp.setRequestHeader("user-id", Cookies.get("user-id"));
-    xhttp.setRequestHeader("x-api-key", Cookies.get("unique-id"));
-    xhttp.send();
-    while(!xhttp.DONE) await Delay(100);
-
-    return xhttp.status == 200 ? JSON.parse(xhttp.responseText) : null;
-}
-
-async function GetColumn(id){
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `https://${document.location.host}/api/project/${projectId}/task/get/all`, true);
-    xhttp.setRequestHeader("user-id", Cookies.get("user-id"));
-    xhttp.setRequestHeader("x-api-key", Cookies.get("unique-id"));
-    xhttp.send();
-    while(!xhttp.DONE) await Delay(100);
-
-    return xhttp.status == 200 ? JSON.parse(xhttp.responseText) : null;
-}*/

@@ -25,9 +25,6 @@ class TaskColumn extends HTMLElement {
     }
     
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(
-          `Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
-        );
         if(name == "column-title"){
             this.getElementsByClassName("title")[0].value = newValue;
         }

@@ -53,9 +53,6 @@ class TaskCard extends HTMLElement {
     }
     
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(
-          `Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
-        );
         if(name == "task-column-id"){
             if(this.parentElement != null) MoveTaskToColumn(this.getAttribute("task-id"), newValue);
         }
